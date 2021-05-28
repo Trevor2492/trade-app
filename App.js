@@ -1,29 +1,34 @@
-import { StatusBar } from 'expo-status-bar';
-import React, { useState } from 'react';
-import { StyleSheet, Text, View, Button, Alert, TextInput } from 'react-native';
+import React from 'react';
+import { StyleSheet } from 'react-native';
+import Splash from './src/Splash';
+import Home from './src/Home';
+
+// import react native gesture handler
+import 'react-native-gesture-handler';
+
+// import react Navigation
+import { NavigationContainer } from '@react-navigation/native';
+import { createStackNavigator } from '@react-navigation/stack';
+
+const Stack = createStackNavigator();
 
 export default function App() {
 
-  const [name, onChangeText] = useState('')
-
   return (
-    <View style={styles.container}>
-
-      <TextInput
-        style={styles.input}
-        onChangeText={onChangeText}
-        value={name}
-      />
-
-      <Text>Hello {name}</Text>
-
-      <Button 
-        title='Tap Here'
-        onPress={() => Alert.alert(name + ' pressed the button')}
-      />
-
-      <StatusBar style="auto" />
-    </View>
+    <NavigationContainer>
+      <Stack.Navigator
+        initialRouteName="Splash"
+      >
+        <Stack.Screen
+          name="Splash"
+          component={Splash}
+        />
+        <Stack.Screen
+          name="Home"
+          component={Home}
+        />
+      </Stack.Navigator>
+    </NavigationContainer>
   );
 }
 
@@ -33,11 +38,5 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
     alignItems: 'center',
     justifyContent: 'center',
-  },
-  input: {
-    borderWidth: 1,
-    height: 40,
-    width: 150,
-    margin: 12
-  },
+  }
 });
